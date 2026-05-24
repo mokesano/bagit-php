@@ -1,0 +1,103 @@
+# Workflow: Release Otomatis (Semantic Release) untuk Library PHP
+#
+# Deskripsi:
+#   Workflow ini berjalan setiap kali ada push ke branch `master` (bukan `main`).
+#   Ia akan menganalisis commit-commit baru, menentukan versi rilis
+#   berikutnya berdasarkan aturan Semantic Versioning (major.minor.patch),
+#   membuat Git tag, dan menerbitkan GitHub Release.
+#
+#   Aturan penentuan versi:
+#   - Commit dengan `fix:`        → bump patch (1.2.3 → 1.2.4)
+#   - Commit dengan `feat:`       → bump minor (1.2.3 → 1.3.0)
+#   - Commit dengan `BREAKING CHANGE:` atau tanda `!` setelah tipe
+#                                 → bump major (1.2.3 → 2.0.0)
+#
+# Catatan:
+#   Pastikan Anda menggunakan format commit Conventional Commits.
+#   Token GITHUB_TOKEN sudah tersedia otomatis di Actions.
+
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+
+permissions:
+  contents: write
+  packages: write
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          coverage: none
+          tools: composer:v2
+
+      - name: Validate composer.json and composer.lock
+        run: composer validate --strict
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress --no-dev
+
+      - name: Run static analysis (PHPStan)
+        run: |
+          composer require --dev phpstan/phpstan
+          vendor/bin/phpstan analyse src --level max --no-progress
+
+      - name: Run code style check (PHP CS Fixer)
+        run: |
+          composer require --dev friendsofphp/php-cs-fixer
+          vendor/bin/php-cs-fixer fix src --dry-run --diff --verbose
+
+      - name: Run tests
+        run: |
+          composer require --dev phpunit/phpunit
+          vendor/bin/phpunit --configuration phpunit.xml --testdox
+
+      - name: Create release archive
+        run: |
+          mkdir -p dist
+          tar -czvf dist/jats-engine-${{ github.ref_name }}.tar.gz \
+            --exclude='.git' \
+            --exclude='tests' \
+            --exclude='.github' \
+            --exclude='dist' \
+            .
+
+      - name: Generate changelog
+        id: changelog
+        run: |
+          PREVIOUS_TAG=$(git describe --tags --abbrev=0 HEAD^ 2>/dev/null || echo "")
+          if [ -z "$PREVIOUS_TAG" ]; then
+            CHANGELOG=$(git log --pretty=format:"- %s (%h)" ${{ github.ref_name }})
+          else
+            CHANGELOG=$(git log --pretty=format:"- %s (%h)" $PREVIOUS_TAG..${{ github.ref_name }})
+          fi
+          echo "changelog<<EOF" >> $GITHUB_OUTPUT
+          echo "$CHANGELOG" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: dist/jats-engine-${{ github.ref_name }}.tar.gz
+          body: |
+            ## Changelog
+            
+            ${{ steps.changelog.outputs.changelog }}
+            
+          draft: false
+          prerelease: false
+          name: Release ${{ github.ref_name }}
+          tag_name: ${{ github.ref_name }}
