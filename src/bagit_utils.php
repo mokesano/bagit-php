@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 
+namespace Wizdam\BagIt;
+
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
 /**
@@ -29,6 +31,9 @@ declare(strict_types=1);
  *
  * @edition Wizdam Edition (PHP 8.x Compatible)
  */
+
+// Load Archive_Tar from PEAR package
+require_once __DIR__ . '/../vendor/autoload.php';
 
 
 

@@ -1,0 +1,54 @@
+```php
+# Compiled and build artifacts
+*.pyc
+__pycache__/
+*.o
+*.obj
+*.class
+*.exe
+*.dll
+*.so
+*.a
+*.out
+
+# Dependencies
+node_modules/
+vendor/
+composer.lock
+*.lock
+
+# Logs and temp files
+*.log
+*.tmp
+*.swp
+*.swo
+*.bak
+*.~
+*~
+
+# Environment
+.env
+.env.local
+.env.*
+.env.local.*
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Build and distribution
+dist/
+build/
+target/
+*.tar
+*.gz
+*.zip
+*.rar
+*.7z
+
+# OS generated files
+.DS_Store
+Thumbs.db
+```
