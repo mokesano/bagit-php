@@ -32,11 +32,16 @@ namespace Wizdam\BagIt;
  * @edition Wizdam Edition (PHP 8.x Compatible)
  */
 
+// Load helper and support files (PSR-4 does not autoload functions)
+require_once __DIR__ . '/bagit_utils.php';
+require_once __DIR__ . '/bagit_manifest.php';
+require_once __DIR__ . '/bagit_fetch.php';
+
 
 /**
  * This is a class for all bag exceptions.
  */
-class BagItException extends Exception
+class BagItException extends \Exception
 {
 
 }
@@ -273,7 +278,7 @@ class BagIt
     {
         $hashAlgorithm = strtolower($hashAlgorithm);
         if ($hashAlgorithm != 'md5' && $hashAlgorithm != 'sha1') {
-            throw new InvalidArgumentException("Invalid hash algorithim: '$hashAlgorithm'.");
+            throw new \InvalidArgumentException("Invalid hash algorithim: '$hashAlgorithm'.");
         }
 
         $this->manifest->setHashEncoding($hashAlgorithm);
@@ -541,7 +546,7 @@ class BagIt
                     $this->bagDirectory . '/',
                     $this->tagFileEncoding
                 );
-            } catch (Exception $exc) {
+            } catch (\Exception $exc) {
                 array_push(
                     $this->bagErrors,
                     ['manifest', "Error reading $manifestFile."]
@@ -567,7 +572,7 @@ class BagIt
                         "{$this->bagDirectory}/fetch.txt",
                         $this->tagFileEncoding
                     );
-                } catch (Exception $exc) {
+                } catch (\Exception $exc) {
                     array_push(
                         $this->bagErrors,
                         ['fetch', 'Error reading fetch file.']
@@ -650,7 +655,7 @@ class BagIt
         try {
             $lines = readLines($this->bagInfoFile, $this->tagFileEncoding);
             $this->bagInfoData = BagIt_parseBagInfo($lines);
-        } catch (Exception $exc) {
+        } catch (\Exception $exc) {
             array_push(
                 $this->bagErrors,
                 ['baginfo', 'Error reading bag info file.']

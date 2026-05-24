@@ -32,6 +32,9 @@ namespace Wizdam\BagIt;
  * @edition Wizdam Edition (PHP 8.x Compatible)
  */
 
+// Load Archive_Tar from PEAR package
+require_once __DIR__ . '/../vendor/autoload.php';
+
 
 
 /**
