@@ -5,11 +5,11 @@
     "license": "GPL-3.0-only",
     "autoload": {
         "psr-4": {
-            "Wizdam\\\\BagIt\\\\": "src/"
+            "Wizdam\\BagIt\\": "src/"
         }
     },
     "require": {
-        "php": "^8.4",
+        "php": "^8.2",
         "pear/archive_tar": "^1.4"
     }
 }

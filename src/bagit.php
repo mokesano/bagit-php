@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 
+namespace Wizdam\BagIt;
+
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
 /**
@@ -29,12 +31,6 @@ declare(strict_types=1);
  *
  * @edition Wizdam Edition (PHP 8.x Compatible)
  */
-
-
-require_once 'Archive/Tar.php';
-require_once 'bagit_fetch.php';
-require_once 'bagit_manifest.php';
-require_once 'bagit_utils.php';
 
 
 /**
