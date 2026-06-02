@@ -1,4 +1,5 @@
-```php
+# BagIt-PHP Ignore Composer's vendor and bin directories
+
 # Compiled and build artifacts
 *.pyc
 __pycache__/
@@ -14,8 +15,7 @@ __pycache__/
 # Dependencies
 node_modules/
 vendor/
-composer.lock
-*.lock
+library/
 
 # Logs and temp files
 *.log
@@ -51,4 +51,3 @@ target/
 # OS generated files
 .DS_Store
 Thumbs.db
-```

@@ -3,6 +3,10 @@
     "description": "BagIt Library for LOCKSS Personal Lockers Network (PLN)",
     "type": "library",
     "license": "GPL-3.0-only",
+    "config": {
+        "vendor-dir": "library",
+        "bin-dir": "library"
+    },
     "autoload": {
         "psr-4": {
             "Wizdam\\BagIt\\": "src/"
