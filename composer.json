@@ -1,5 +1,5 @@
 {
-    "name": "wizdam/bagit-php",
+    "name": "wizdam/bagit",
     "description": "BagIt Library for LOCKSS Personal Lockers Network (PLN)",
     "type": "library",
     "license": "GPL-3.0-only",

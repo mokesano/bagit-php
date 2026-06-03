@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "489f94ad9a65e68e75b23f4c2b1e178b",
+    "content-hash": "f7ed6998820b944da1b3fc537920071d",
     "packages": [
         {
             "name": "pear/archive_tar",
