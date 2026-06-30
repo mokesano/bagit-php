@@ -275,7 +275,7 @@ This project is distributed under the **GNU General Public License v3.0 (GPL‑3
 
 <p align="center">
   <br>
-  <sub>Made with ❤️ for the digital preservation community</sub>
+  <span>Made with ❤️ for the digital preservation community</span>
   <br><br>
   <a href="https://github.com/mokesano/bagit-php/stargazers">
     <img src="https://img.shields.io/github/stars/mokesano/bagit-php?style=social" alt="GitHub Stars">
@@ -284,5 +284,5 @@ This project is distributed under the **GNU General Public License v3.0 (GPL‑3
     <img src="https://img.shields.io/github/forks/mokesano/bagit-php?style=social" alt="GitHub Forks">
   </a>
   <br><br>
-  <sub>© 2026 Rochmady. Licensed under GPL‑3.0‑only.</sub>
+  <span>© 2026 Rochmady. Licensed under GPL‑3.0‑only.</span>
 </p>
